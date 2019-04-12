@@ -1,0 +1,41 @@
+{
+    "name": "fostercommerce/delivery-dates",
+    "description": "Delivery Dates",
+    "type": "craft-plugin",
+    "version": "1.0.0-beta.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "delivery dates"
+    ],
+    "support": {
+        "docs": "https://github.com/FosterCommerce/delivery-dates/delivery-dates/blob/master/README.md",
+        "issues": "https://github.com/FosterCommerce/delivery-dates/delivery-dates/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Foster Commerce",
+            "homepage": "https://fostercommerce.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.1",
+        "craftcms/commerce": "^2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "fostercommerce\\deliverydates\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Delivery Dates",
+        "handle": "delivery-dates",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/FosterCommerce/delivery-dates/delivery-dates/master/CHANGELOG.md",
+        "class": "fostercommerce\\deliverydates\\DeliveryDates"
+    }
+}

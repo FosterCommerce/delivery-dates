@@ -1,0 +1,146 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.lightswitchField({
+    label: "Active"|t('delivery-dates'),
+    instructions: "Set whether or not delivery dates should be calculated"|t("delivery-dates"),
+    id: 'active',
+    name: 'active',
+    on: settings.active
+}) }}
+
+<div class="field">
+    <div class="heading">
+        <label>System Time Zone</label>
+        <div>
+            {{craft.app.projectConfig.get('system').timeZone}}
+        </div>
+    </div>
+</div>
+
+{{ forms.textField({
+    label: "Max Fulfillment Time"|t('app'),
+    instructions: "Within how many business hours will the new order be handed to USPS with tracking number",
+    id: 'fulfillmentTime',
+    name: 'fulfillmentTime',
+    type: 'number',
+    value: settings.fulfillmentTime,
+    required: true,
+}) }}
+
+{{ forms.textField({
+    label: "Order Cut-off Time"|t('app'),
+    instructions: "The time of day when an order should be place to ensure 2-day delivery",
+    id: 'cutoffTime',
+    name: 'cutoffTime',
+    type: 'number',
+    value: settings.cutoffTime,
+    required: true,
+}) }}
+
+{{ forms.textField({
+    label: "Courier Pick-up Time"|t('app'),
+    instructions: "The time of day when USPS must receive order for today to be considered day 1",
+    id: 'courierCutoffTime',
+    name: 'courierCutoffTime',
+    type: 'number',
+    value: settings.courierCutoffTime,
+    required: true,
+}) }}
+
+{% set daysOfWeek = settings.daysOfWeek %}
+{{ forms.editableTableField({ label: "Normal fulfillment hours"|t('delivery-dates'),
+    id: 'daysOfWeek',
+    name: 'daysOfWeek',
+    cols: {
+        dayOfWeek: {
+            heading: 'Day',
+            type: 'heading',
+        },
+        active: {
+            heading: 'Active',
+            type: 'lightswitch',
+        },
+        min: {
+            heading: 'Start Hour',
+            type: 'number',
+        },
+        max: {
+            heading: 'End Hour',
+            type: 'number',
+        },
+    },
+    rows: {
+        sunday: {
+            name: 'sunday',
+            dayOfWeek: 'Sunday',
+            active: false,
+            min: daysOfWeek.sunday.min,
+            max: daysOfWeek.sunday.max,
+        },
+        monday: {
+            name: 'monday',
+            dayOfWeek: 'Monday',
+            active: true,
+            min: daysOfWeek.monday.min,
+            max: daysOfWeek.monday.max,
+        },
+        tuesday: {
+            name: 'tuesday',
+            dayOfWeek: 'Tuesday',
+            active: true,
+            min: daysOfWeek.tuesday.min,
+            max: daysOfWeek.tuesday.max,
+        },
+        wednesday: {
+            name: 'wednesday',
+            dayOfWeek: 'Wednesday',
+            active: true,
+            min: daysOfWeek.wednesday.min,
+            max: daysOfWeek.wednesday.max,
+        },
+        thursday: {
+            name: 'thursday',
+            dayOfWeek: 'Thursday',
+            active: true,
+            min: daysOfWeek.thursday.min,
+            max: daysOfWeek.thursday.max,
+        },
+        friday: {
+            name: 'friday',
+            dayOfWeek: 'Friday',
+            active: true,
+            min: daysOfWeek.friday.min,
+            max: daysOfWeek.friday.max,
+        },
+        saturday: {
+            name: 'saturday',
+            dayOfWeek: 'Saturday',
+            active: false,
+            min: daysOfWeek.saturday.min,
+            max: daysOfWeek.saturday.max,
+        },
+    },
+    staticRows: true,
+}) }}
+
+{% set exceptions = [] %}
+{% for rule in settings.exceptions %}
+    {% set rule = rule|merge({ date: date(rule.date.date, rule.date.timezone) }) %}
+    {% set exceptions = exceptions|merge([rule]) %}
+{% endfor %}
+
+{{ forms.editableTableField({ label: "Exceptions"|t('delivery-dates'),
+    id: 'exceptions',
+    name: 'exceptions',
+    cols: {
+        date: {
+            heading: 'Date',
+            type: 'date',
+        },
+        name: {
+            heading: 'Name',
+            type: 'singleline',
+        },
+    },
+    rows: exceptions,
+}) }}
