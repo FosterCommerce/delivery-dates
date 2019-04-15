@@ -74,14 +74,11 @@ class Settings extends Model
         // Make sure the date format is standardized so we can do comparisons when
         // checking for exception days.
         if ($this->exceptions) {
-            $formatter = Craft::$app->formatter;
-            $format = $formatter->dateTimeFormats['short']['date'];
+            $format = Craft::$app->locale->getDateFormat('short', 'php');
 
             foreach ($this->exceptions as $key => $exception) {
-                $this->exceptions[$key]['date']['date'] = $formatter->asDate(
-                    $exception['date']['date'],
-                    'yyyy-MM-d'
-                );
+                $date = \DateTime::createFromFormat($format, $exception['date']['date']);
+                $this->exceptions[$key]['date']['date'] = $date->format('Y-m-d');
             }
         }
 
