@@ -28,16 +28,6 @@
 }) }}
 
 {{ forms.textField({
-    label: "Order Cut-off Time"|t('app'),
-    instructions: "The time of day when an order should be place to ensure 2-day delivery",
-    id: 'cutoffTime',
-    name: 'cutoffTime',
-    type: 'number',
-    value: settings.cutoffTime,
-    required: true,
-}) }}
-
-{{ forms.textField({
     label: "Courier Pick-up Time"|t('app'),
     instructions: "The time of day when USPS must receive order for today to be considered day 1",
     id: 'courierCutoffTime',

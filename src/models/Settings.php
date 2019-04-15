@@ -13,8 +13,6 @@ class Settings extends Model
 
     public $fulfillmentTime = 8;
 
-    public $cutoffTime = 14;
-
     public $courierCutoffTime = 14;
 
     public $daysOfWeek = [
