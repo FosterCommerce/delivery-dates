@@ -1,13 +1,5 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.lightswitchField({
-    label: "Active"|t('delivery-dates'),
-    instructions: "Set whether or not delivery dates should be calculated"|t("delivery-dates"),
-    id: 'active',
-    name: 'active',
-    on: settings.active
-}) }}
-
 <div class="field">
     <div class="heading">
         <label>System Time Zone</label>

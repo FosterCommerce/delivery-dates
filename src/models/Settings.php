@@ -9,8 +9,6 @@ use craft\helpers\DateTimeHelper;
 
 class Settings extends Model
 {
-    public $active = true;
-
     public $fulfillmentTime = 8;
 
     public $courierCutoffTime = 14;
