@@ -10,6 +10,7 @@ class Calculator
     private $orderDate;
     private $orderTime;
 
+    private $orderByDate;
     private $orderReadyDate;
     private $courierHandOffDate;
     private $deliveryDate;
@@ -24,7 +25,7 @@ class Calculator
         $this->settings = $settings;
 
         $this->orderDate = $time;
-        $this->orderTime = $time->format('G');
+        $this->orderTime = $time->format('G') + 1;
     }
 
     /**
@@ -109,6 +110,9 @@ class Calculator
                 $this->orderTime = false; // Original order time will no longer apply.
             }
         }
+
+        $this->orderByDate = clone($this->orderDate);
+        $this->orderByDate->setTime($this->orderTime, 0);
 
         $fulfillmentDay = null;
 

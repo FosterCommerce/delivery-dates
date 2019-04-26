@@ -17,9 +17,13 @@ class Variable
     {
         // Timezone can be set in general.php or in Control Panel.
         // TODO: Is there another way to get the configured timezone?
+
         $configTz = Craft::$app->getTimeZone();
+        $originalTz = $configTz;
         if (!$time) {
             $time = new \DateTime('now', new \DateTimeZone($configTz));
+        } else {
+            $originalTz = $time->getTimezone()->getName();
         }
 
         // Because we're doing comparisons against dates in a specific format, ex: 2019-04-16, we
@@ -29,7 +33,17 @@ class Variable
 
         $calculator = new Calculator(DeliveryDates::getInstance()->settings, $time);
         $calculator->calculate();
-        return $calculator->deliveryDate;
+
+        $orderByDate = clone($calculator->orderByDate);
+        $deliveryDate = clone($calculator->deliveryDate);
+
+        $orderByDate->setTimezone(new \DateTimeZone($originalTz));
+        $deliveryDate->setTimezone(new \DateTimeZone($originalTz));
+
+        return [
+            'orderByDate' => $orderByDate,
+            'deliveryDate' => $deliveryDate,
+        ];
     }
 }
 

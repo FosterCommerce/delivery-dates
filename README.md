@@ -19,15 +19,13 @@ To install the plugin, follow these instructions.
 ## Template Usage
 
 ```twig
-{{craft.deliveryDates.deliveryBy()|date('m/d/Y')}}
-
-{# 4/19/2019 #}
+{% set deliveryBy = craft.deliveryDates.deliveryBy %}
 ```
 
 ```twig
-{{craft.deliveryDates.deliveryBy(order.dateOrdered)|date('m/d/Y')}}
-
-{# 4/22/2019 #}
+{% set deliveryBy = craft.deliveryDates.deliveryBy(order.dateOrdered) %}
+Order by {{deliveryBy.orderByDate|date('m/d/Y H:i:s')}}{# 4/29/2019 09:00:00 #}
+Delivery By {{deliveryBy.deliveryDate|date('m/d/Y')}} {# 5/2/2019 #}
 ```
 
 Brought to you by [Foster Commerce](https://fostercommerce.com)
