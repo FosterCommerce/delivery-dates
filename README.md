@@ -20,6 +20,8 @@ To install the plugin, follow these instructions.
 
 ```twig
 {% set deliveryBy = craft.deliveryDates.deliveryBy %}
+Order by {{deliveryBy.orderByDate|date('m/d/Y H:i:s')}}{# 4/19/2019 14:00:00 #}
+Delivery By {{deliveryBy.deliveryDate|date('m/d/Y')}} {# 4/19/2019 #}
 ```
 
 ```twig
